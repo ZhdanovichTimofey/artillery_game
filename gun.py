@@ -3,11 +3,9 @@ import tkinter as tk
 import math
 import time
 
-# print (dir(math))
-
-# Создание экрана
 from typing import List, Any
 
+# Создание экрана
 root = tk.Tk()
 fr = tk.Frame(root)
 root.geometry('800x600')
@@ -91,6 +89,7 @@ class Gun:
         self.id = canv.create_line(20, 450, 50, 420, width=7)
 
     def fire2_start(self, event):
+        """Функция старта подготовки выстрела"""
         self.f2_on = 1
 
     def fire2_end(self, event):
@@ -170,6 +169,10 @@ class Target:
         canv.itemconfig(score.score, text=score.points)
 
     def move(self):
+        """
+        Функция движения целей
+        :return:
+        """
         self.x += self.vx
         self.y -= self.vy
         if (self.y + self.vy >= 600) or (self.y + self.vy <= 0):
@@ -186,6 +189,7 @@ class Target:
 screen1 = canv.create_text(400, 300, text='', font='28')
 g1 = Gun()
 bullet = 0
+balls = []
 
 
 def new_game(event=''):
@@ -193,14 +197,12 @@ def new_game(event=''):
     Функция начинает новый раунд
     :return:
     """
-    global screen1, balls, bullet
+    global screen1, bullet
     canv.itemconfig(screen1, text='')
     targets = []
     for i in range(2):
         targets += [Target()]
     score = Score()
-    bullet = 0
-    balls = []
     canv.bind('<Button-1>', g1.fire2_start)
     canv.bind('<ButtonRelease-1>', g1.fire2_end)
     canv.bind('<Motion>', g1.targeting)
