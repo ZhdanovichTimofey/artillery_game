@@ -14,6 +14,7 @@ canv.pack(fill=tk.BOTH, expand=1)
 
 
 class Ball:
+    """Класс для создания и обработки состояния снарядов"""
     def __init__(self, x=40, y=450, t=300):
         """ Конструктор класса ball
         Args:
@@ -75,13 +76,15 @@ class Ball:
             В противном случае возвращает False.
         """
         bool_hittest = False
-        if ((self.x - obj.x)**2 + (self.y - obj.y)**2) <= ((self.r + obj.r)**2):
+        if ((self.x - obj.x)**2 + (self.y - obj.y)**2) <= \
+                ((self.r + obj.r)**2):
             bool_hittest = True
             canv.delete(self.id)
         return bool_hittest
 
 
 class Gun:
+    """Класс для создания и обработки действий пушки"""
     def __init__(self):
         self.f2_power = 10
         self.f2_on = 0
@@ -136,12 +139,14 @@ class Gun:
 
 
 class Score:
+    """Класс для подсчета очков"""
     def __init__(self):
         self.points = 0
         self.score = canv.create_text(30, 30, text=self.points, font='28')
 
 
 class Target:
+    """Класс целей"""
     def __init__(self):
         self.points = 0
         self.id = canv.create_oval(0, 0, 0, 0)
@@ -200,6 +205,7 @@ def new_game(event=''):
     global screen1, bullet
     canv.itemconfig(screen1, text='')
     targets = []
+    bullet = 0
     for i in range(2):
         targets += [Target()]
     score = Score()
